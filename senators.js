@@ -19,7 +19,7 @@ function displayJSON(obj) {
     var independentCount = 0;
 
     
-    // This code iterates through the party and writes html code to put the color information in a table.   
+    // This code iterates through the senators and counts the number in each party
     for (var i=0; i < senators.length; i++){    
         if (senators[i].party === "Democrat"){
             democratCount++;
@@ -28,12 +28,8 @@ function displayJSON(obj) {
         } else {
             independentCount++;
         }          
-        //partyInfo += "<tr><td>" + colorName + "</td><td>" + colorValue + "</td></tr>";
     }
-     // Close the table element.
-    //partyInfo += "</table>"; 
-    
-    // Add the new html code to the div element with id = 'id01'.
+
     document.getElementById("id01").innerHTML = democratCount;
     document.getElementById("id02").innerHTML = republicanCount;
     document.getElementById("id03").innerHTML = independentCount;

@@ -7,13 +7,17 @@ xmlhttp.onreadystatechange = function() {
         //Parse the JSON data to a JavaScript variable. 
         var parsedObj = JSON.parse(xmlhttp.responseText);  
         // This function is defined below and deals with the JSON data parsed from the file. 
-        displayJSON(parsedObj);
         displayLeader(parsedObj);
+        countParty(parsedObj); 
+        displaySenators(parsedObj);  
     }
 };
 
-function displayJSON(obj) {
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
 
+function countParty(obj) {
+    
     var senators = obj.objects;
     var democratCount = 0;
     var republicanCount = 0;
@@ -57,8 +61,26 @@ function displayLeader(obj){
     document.getElementById("id04").innerHTML = out; 
 }
 
+function displaySenators(obj) {
+    var senators = obj.objects;
+    var senatorInfo = "<table class = 'table'>";
+    senatorInfo += "<tr><th>Name</th><th>Party</th><th>State</th><th>Gender</th><th>Rank</th></tr>";
 
-xmlhttp.open("GET", url, true);
-xmlhttp.send();
+    // This code iterates through all senators and adds their name, party, state and rank to a table
+    for(var i = 0; i < senators.length; i++){
+        var senatorFirstName = senators[i].person.firstname;
+        var senatorLastName = senators[i].person.lastname;
+        var senatorParty = senators[i].party;
+        var senatorState = senators[i].state;
+        var senatorGender = senators[i].person.gender_label;
+        var senatorRank = senators[i].senator_rank_label;
+        senatorInfo += "<tr><td>" + senatorFirstName + " " + senatorLastName + "</td>"
+        + "<td>" + senatorParty + "</td>" + "<td>" + senatorState + "</td>"
+        + "<td>" + senatorGender + "</td>" + "<td>" + senatorRank + "</td></tr>";
+    }
 
-console.log(parsedObj)
+    senatorInfo += "</table>"; 
+    
+    document.getElementById("id05").innerHTML = senatorInfo;
+}
+

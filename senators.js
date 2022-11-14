@@ -1,3 +1,6 @@
+// These variables are used to store the data parsed from the json files.
+var parsedObj;
+
 var xmlhttp = new XMLHttpRequest();
 var url = "senators.json";
 
@@ -5,9 +8,9 @@ xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         
         //Parse the JSON data to a JavaScript variable. 
-        var parsedObj = JSON.parse(xmlhttp.responseText);  
+        parsedObj = JSON.parse(xmlhttp.responseText);  
         // This function is defined below and deals with the JSON data parsed from the file. 
-        displayLeader(parsedObj);
+        displayLeaders(parsedObj);
         countParty(parsedObj); 
         displaySenators(parsedObj);  
     }
@@ -43,7 +46,7 @@ function countParty(obj) {
 
 party = ["Democrat", "Republican", "Independent"]
 
-function displayLeader(obj){
+function displayLeaders(obj){
 
     var senators = obj.objects;
     var out = "";
@@ -74,13 +77,46 @@ function displaySenators(obj) {
         var senatorState = senators[i].state;
         var senatorGender = senators[i].person.gender_label;
         var senatorRank = senators[i].senator_rank_label;
-        senatorInfo += "<tr><td>" + senatorFirstName + " " + senatorLastName + "</td>"
-        + "<td>" + senatorParty + "</td>" + "<td>" + senatorState + "</td>"
-        + "<td>" + senatorGender + "</td>" + "<td>" + senatorRank + "</td></tr>";
+        senatorInfo += "<tr onclick=\"detailedInfo(parsedObj," + i + ")\"><td>" + senatorFirstName + " " + senatorLastName + "</td>"
+        + "<td>" + senatorParty + "</td>" 
+        + "<td>" + senatorState + "</td>"
+        + "<td>" + senatorGender + "</td>" 
+        + "<td>" + senatorRank + "</td></tr>" ;
     }
 
     senatorInfo += "</table>"; 
     
     document.getElementById("id05").innerHTML = senatorInfo;
+}
+
+function detailedInfo(obj, i) {
+       
+    var detailedArray = obj.objects;
+   
+    var office = detailedArray[i].extra.office;
+    var dateOfBirth = detailedArray[i].person.birthday;
+    var startDate = detailedArray[i].startdate;
+    var twitterId = detailedArray[i].person.twitterid;
+    var youtubeId = detailedArray[i].person.youtubeid;
+    var website = detailedArray[i].website;
+    
+    if (youtubeId == null){
+        youtubeId_out = "";
+    } else {youtubeId_out = "<br>Youtube ID: " + youtubeId;}
+
+    if (twitterId == null){
+        twitterId_out = "";
+    } else {twitterId_out = "<br>Twitter ID: " + twitterId;}
+
+
+    var detail_out = "Office: " + office +
+    "<br>Date of Birth: " + dateOfBirth +
+    "<br>Start date: " + startDate +
+    twitterId_out +
+    youtubeId_out +
+    "<br>Website: <a href=\"" + website + "\">" + website;
+    
+    document.getElementById("id06").innerHTML = detail_out;
+    
 }
 

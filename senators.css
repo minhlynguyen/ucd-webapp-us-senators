@@ -1,3 +1,10 @@
+:root{ /* Use variable for color to unify color styling throughout the website and edit faster*/
+    --border-color: black;
+    --bg-color-strong: #1e2e53; 
+    --bg-color-light: white;
+    --shadow: rgba(0, 0, 0, 0.15); 
+}
+
 .table table{
     width: 100%;
     padding: 20px 20px 60px 20px;
@@ -6,18 +13,28 @@
 }
 
 .table th{
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--border-color);
     padding: 30px 10px 5px 10px;
     font-size: 20px
 }
 
 .table td{
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--border-color);
     padding: 8px;
-   text-align: left; 
+    text-align: left; 
+}
+
+#id05 td{
+    cursor: pointer;
 }
 
 ul {
     margin-left: 0;
     padding-left: 0;
+}
+
+.senators{
+    display: flex;
+    background: var(--bg-color-light);
+    box-shadow: inset 0 0 3rem var(--shadow);
 }

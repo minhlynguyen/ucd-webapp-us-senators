@@ -1,0 +1,47 @@
+.table table{
+    width: 100%;
+    padding: 20px 20px 60px 20px;
+    overflow: auto;
+    display: flex;
+}
+
+.table th{
+    border-bottom: 1px solid black;
+    padding: 30px 10px 5px 10px;
+    font-size: 20px
+}
+
+.table td{
+    border-bottom: 1px solid black;
+    padding: 8px;
+   text-align: left; 
+}
+
+ul {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+
+/* From W3S: https://www.w3schools.com/howto/howto_js_filter_table.asp */
+#myTable {
+  border-collapse: collapse; /* Collapse borders */
+  width: 100%; /* Full-width */
+  border: 1px solid #ddd; /* Add a grey border */
+  font-size: 18px; /* Increase font-size */
+}
+
+#myTable th, #myTable td {
+  text-align: left; /* Left-align text */
+  padding: 12px; /* Add padding */
+}
+
+#myTable tr {
+  /* Add a bottom border to all table rows */
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  /* Add a grey background color to the table header and on hover */
+  background-color: #f1f1f1;
+}

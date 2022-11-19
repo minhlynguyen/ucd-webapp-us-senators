@@ -1,6 +1,3 @@
-// These variables are used to store the data parsed from the json files.
-var parsedObj;
-
 var xmlhttp = new XMLHttpRequest();
 var url = "senators.json";
 
@@ -8,11 +5,12 @@ xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         
         //Parse the JSON data to a JavaScript variable. 
-        parsedObj = JSON.parse(xmlhttp.responseText);  
+        var parsedObj = JSON.parse(xmlhttp.responseText);  
         // This function is defined below and deals with the JSON data parsed from the file. 
-        displayLeaders(parsedObj);
+        displayLeader(parsedObj);
         countParty(parsedObj); 
         displaySenators(parsedObj);  
+        populateStates(parsedObj)
     }
 };
 
@@ -46,7 +44,7 @@ function countParty(obj) {
 
 party = ["Democrat", "Republican", "Independent"]
 
-function displayLeaders(obj){
+function displayLeader(obj){
 
     var senators = obj.objects;
     var out = "";
@@ -64,59 +62,121 @@ function displayLeaders(obj){
     document.getElementById("id04").innerHTML = out; 
 }
 
+
 function displaySenators(obj) {
-    var senators = obj.objects;
-    var senatorInfo = "<table class = 'table'>";
-    senatorInfo += "<tr><th>Name</th><th>Party</th><th>State</th><th>Gender</th><th>Rank</th></tr>";
+  var senators = obj.objects;
+  var senatorInfo = "<table id = 'myTable'>";
+  senatorInfo += "<tr><th>Name</th><th>Party</th><th>State</th><th>Gender</th><th>Rank</th></tr>";
 
-    // This code iterates through all senators and adds their name, party, state and rank to a table
-    for(var i = 0; i < senators.length; i++){
-        var senatorFirstName = senators[i].person.firstname;
-        var senatorLastName = senators[i].person.lastname;
-        var senatorParty = senators[i].party;
-        var senatorState = senators[i].state;
-        var senatorGender = senators[i].person.gender_label;
-        var senatorRank = senators[i].senator_rank_label;
-        senatorInfo += "<tr onclick=\"detailedInfo(parsedObj," + i + ")\"><td>" + senatorFirstName + " " + senatorLastName + "</td>"
-        + "<td>" + senatorParty + "</td>" 
-        + "<td>" + senatorState + "</td>"
-        + "<td>" + senatorGender + "</td>" 
-        + "<td>" + senatorRank + "</td></tr>" ;
+  // This code iterates through all senators and adds their name, party, state and rank to a table
+  for(var i = 0; i < party.length; i++){
+      for(var j = 0; j < senators.length; j++){
+          if (party[i] == senators[j].party){
+              var senatorFirstName = senators[j].person.firstname;
+              var senatorLastName = senators[j].person.lastname;
+              var senatorParty = senators[j].party;
+              var senatorState = senators[j].state;
+              var senatorGender = senators[j].person.gender_label;
+              var senatorRank = senators[j].senator_rank_label;
+              senatorInfo += "<tr onclick=\"detailedInfo(parsedObj," + i + ")\"><td>" + senatorFirstName + " " + senatorLastName + "</td>"
+              + "<td>" + senatorParty + "</td>" 
+              + "<td>" + senatorState + "</td>"
+              + "<td>" + senatorGender + "</td>" 
+              + "<td>" + senatorRank + "</td></tr>" ;
+            }
+        }
+  }
+  
+  senatorInfo += "</table>"; 
+  
+  document.getElementById("id05").innerHTML = senatorInfo;
+}
+
+function filterFunction() {
+  // Adapted from W3S: https://www.w3schools.com/howto/howto_js_filter_table.asp
+  // And also: https://stackoverflow.com/questions/61189530/html-table-multiple-column-filters 
+  var partyInput = document.getElementById("partyInput");
+  var stateInput = document.getElementById("stateInput");
+  var genderInput = document.getElementById("genderInput");
+  var rankInput = document.getElementById("rankInput");
+  var table = document.getElementById("myTable");
+
+  let partyFilter = partyInput.value.toUpperCase();
+  let stateFilter = stateInput.value.toUpperCase();
+  let genderFilter = genderInput.value.toUpperCase();
+  let rankFilter = rankInput.value.toUpperCase();
+  let tr = table.rows;
+
+
+  
+  for (let i = 1; i < tr.length; i++) {
+    td = tr[i].cells;
+    tdParty = td[1].innerText;
+    tdState = td[2].innerText;
+    tdGender = td[3].innerText;
+    tdRank = td[4].innerText;
+    if (tdParty.toUpperCase().indexOf(partyFilter) > -1 &&
+    tdState.toUpperCase().indexOf(stateFilter) > -1 &&
+    tdGender.toUpperCase().indexOf(genderFilter) > -1 &&
+    tdRank.toUpperCase().indexOf(rankFilter) > -1) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
     }
-
-    senatorInfo += "</table>"; 
-    
-    document.getElementById("id05").innerHTML = senatorInfo;
+  }
 }
 
 function detailedInfo(obj, i) {
        
-    var detailedArray = obj.objects;
-   
-    var office = detailedArray[i].extra.office;
-    var dateOfBirth = detailedArray[i].person.birthday;
-    var startDate = detailedArray[i].startdate;
-    var twitterId = detailedArray[i].person.twitterid;
-    var youtubeId = detailedArray[i].person.youtubeid;
-    var website = detailedArray[i].website;
-    
-    if (youtubeId == null){
-        youtubeId_out = "";
-    } else {youtubeId_out = "<br>Youtube ID: " + youtubeId;}
+  var detailedArray = obj.objects;
+ 
+  var office = detailedArray[i].extra.office;
+  var dateOfBirth = detailedArray[i].person.birthday;
+  var startDate = detailedArray[i].startdate;
+  var twitterId = detailedArray[i].person.twitterid;
+  var youtubeId = detailedArray[i].person.youtubeid;
+  var website = detailedArray[i].website;
+  
+  if (youtubeId == null){
+      youtubeId_out = "";
+  } else {youtubeId_out = "<br>Youtube ID: " + youtubeId;}
 
-    if (twitterId == null){
-        twitterId_out = "";
-    } else {twitterId_out = "<br>Twitter ID: " + twitterId;}
+  if (twitterId == null){
+      twitterId_out = "";
+  } else {twitterId_out = "<br>Twitter ID: " + twitterId;}
 
 
-    var detail_out = "Office: " + office +
-    "<br>Date of Birth: " + dateOfBirth +
-    "<br>Start date: " + startDate +
-    twitterId_out +
-    youtubeId_out +
-    "<br>Website: <a href=\"" + website + "\">" + website;
-    
-    document.getElementById("id06").innerHTML = detail_out;
-    
+  var detail_out = "Office: " + office +
+  "<br>Date of Birth: " + dateOfBirth +
+  "<br>Start date: " + startDate +
+  twitterId_out +
+  youtubeId_out +
+  "<br>Website: <a href=\"" + website + "\">" + website;
+  
+  document.getElementById("id06").innerHTML = detail_out;
+  
 }
 
+// Function to populate the state filter dropdown
+function populateStates(obj) {
+    var data = obj.objects;
+    var uniqueStates = [];
+
+    // Creating an array of unique states
+    for (i = 0; i < data.length; i++) {
+        if (uniqueStates.indexOf(data[i].state) == -1) {
+            uniqueStates.push(data[i].state);
+        }
+    }
+
+    // Code adapted from https://stackoverflow.com/questions/9895082/javascript-populate-drop-down-list-with-array
+    var statesList = document.getElementById("stateInput");
+
+    for (i = 0; i < uniqueStates.length; i++){
+        var option = uniqueStates[i];
+        var element = document.createElement("option");
+        element.textContent = option;
+        statesList.appendChild(element);
+    }
+
+}

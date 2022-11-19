@@ -29,10 +29,30 @@
 
 </table>
 
-<div>
-    <h1>Lead senators</h1>
-    <div id = "id04"></div>
-</div>
+<div id = "id04"></div>
+
+<select id="partyInput" onchange="filterFunction()" class='form-control'>
+    <option value="">Show All</option>
+    <option>Democrat</option>
+    <option>Republican</option>
+    <option>Independent</option>
+</select>
+
+<select id="stateInput" onchange="filterFunction()" class='form-control'>
+    <option value="">Show All</option>
+</select>
+
+<select id="genderInput" onchange="filterFunction()" class='form-control'>
+    <option value="">Show All</option>
+    <option>Male</option>
+    <option>Female</option>
+</select>
+
+<select id="rankInput" onchange="filterFunction()" class='form-control'>
+    <option value="">Show All</option>
+    <option>Junior</option>
+    <option>Senior</option>
+</select>
 
 <section class="senators">
     <div class="senators-list">

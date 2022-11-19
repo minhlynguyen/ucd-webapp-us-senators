@@ -1,3 +1,4 @@
+var parsedObj;
 var xmlhttp = new XMLHttpRequest();
 var url = "senators.json";
 
@@ -5,7 +6,7 @@ xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         
         //Parse the JSON data to a JavaScript variable. 
-        var parsedObj = JSON.parse(xmlhttp.responseText);  
+        parsedObj = JSON.parse(xmlhttp.responseText);  
         // This function is defined below and deals with the JSON data parsed from the file. 
         displayLeader(parsedObj);
         countParty(parsedObj); 
@@ -78,7 +79,7 @@ function displaySenators(obj) {
               var senatorState = senators[j].state;
               var senatorGender = senators[j].person.gender_label;
               var senatorRank = senators[j].senator_rank_label;
-              senatorInfo += "<tr onclick=\"detailedInfo(parsedObj," + i + ")\"><td>" + senatorFirstName + " " + senatorLastName + "</td>"
+              senatorInfo += "<tr onclick=\"detailedInfo(parsedObj," + j + ")\"><td>" + senatorFirstName + " " + senatorLastName + "</td>"
               + "<td>" + senatorParty + "</td>" 
               + "<td>" + senatorState + "</td>"
               + "<td>" + senatorGender + "</td>" 

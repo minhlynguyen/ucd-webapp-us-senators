@@ -31,34 +31,40 @@
 
 <div id = "id04"></div>
 
-<select id="partyInput" onchange="filterFunction()" class='form-control'>
-    <option value="">Show All</option>
-    <option>Democrat</option>
-    <option>Republican</option>
-    <option>Independent</option>
-</select>
-
-<select id="stateInput" onchange="filterFunction()" class='form-control'>
-    <option value="">Show All</option>
-</select>
-
-<select id="genderInput" onchange="filterFunction()" class='form-control'>
-    <option value="">Show All</option>
-    <option>Male</option>
-    <option>Female</option>
-</select>
-
-<select id="rankInput" onchange="filterFunction()" class='form-control'>
-    <option value="">Show All</option>
-    <option>Junior</option>
-    <option>Senior</option>
-</select>
 
 <section class="senators">
     <div class="senators-list">
-        <h1>All senators</h1>
+        <h1 style="font-size:28px;">All senators</h1>
+        <div>
+            <p>Select Filters:</p>
+            <select id="partyInput" onchange="filterFunction()" class='form-control'>
+                <option value="">Filter by Party( Default: Show All)</option>
+                <option>Democrat</option>
+                <option>Republican</option>
+                <option>Independent</option>
+            </select>
+
+            <select id="stateInput" onchange="filterFunction()" class='form-control'>
+                <option value="">Filter by State (Default: Show All)</option>
+            </select>
+        
+            <select id="genderInput" onchange="filterFunction()" class='form-control'>
+                <option value="">Filter by Gender (Default: Show All)</option>
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+        
+            <select id="rankInput" onchange="filterFunction()" class='form-control'>
+                <option value="">Filter by Rank (Default: Show All)</option>
+                <option>Junior</option>
+                <option>Senior</option>
+            </select>
+        </div>
         <div id = "id05"></div>
+        <p id="errorHandle"></p>
     </div>
+
+
 
     <div class="senator-detail">
         <div id = "id06"></div>

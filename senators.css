@@ -1,9 +1,102 @@
 :root{ /* Use variable for color to unify color styling throughout the website and edit faster*/
   --border-color: black;
-  --bg-color-strong: #1e2e53; 
-  --bg-color-light: white;
+  --bg-color-strong: rgb(18, 18, 18);
+  --bg-color-light: rgb(48, 71, 94);
+  --white-font: rgb(245, 245, 245);
   --shadow: rgba(0, 0, 0, 0.15); 
+  --header-height: 72px;
+  --font-family: Google Sans,arial,sans-serif;
+  --democrat-color: ;
 }
+
+body{
+  background-color: var(--bg-color-light);
+  background: linear-gradient(to bottom right, var(--bg-color-light), var(--bg-color-strong));
+  margin: 0 0 0 0;
+  color: var(--white-font);
+  font-family: var(--font-family);
+}
+
+h4{
+  border-bottom: 3px solid var(--white-font);
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.top{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: var(--header-height);
+  background: var(--bg-color-light);
+  opacity: 0.8;
+  box-shadow: 0 0 10px var(--shadow);
+}
+
+#title{
+  display: contents;
+}
+
+#logo{
+  padding: 15px;
+}
+
+header{
+  color: white;
+  background-image: url("/images/map.jpeg");
+  background-size: cover;
+  text-align: center;
+}
+
+
+
+.count{
+  display: flex;
+  justify-content: space-evenly;
+  font-size: large;
+  height: 500px;
+}
+
+section{
+  display: flex;
+  justify-content: center;
+}
+
+.party-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.senator-no{
+  font-size: 60px;
+  text-align: center;
+  margin: 20px;
+}
+
+.leader{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.leadercontainer{
+  display: flex;
+  justify-content: space-between;
+}
+
+.leadername{
+  width: 49%;
+  text-align: end;
+}
+
+.role{
+  width: 49%;
+  text-align: left;
+}
+
 
 .table table{
   width: 100%;
@@ -34,7 +127,6 @@ ul {
 
 .senators{
   display: flex;
-  background: var(--bg-color-light);
   box-shadow: inset 0 0 3rem var(--shadow);
 }
 
@@ -51,7 +143,6 @@ ul {
 #allSenatorsTable {
   border-collapse: collapse; 
   width: 100%; 
-  border: 1px solid #ddd; 
   font-size: 18px; 
 }
 
@@ -61,15 +152,14 @@ ul {
 }
 
 #allSenatorsTable th {
-  background-color: #6883BC;
   font-weight: bold;
 }
 
 #allSenatorsTable tr {
   /* Add a bottom border to all table rows */
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--white-font);
 }
 
 #allSenatorsTable tr:hover {
-  background-color: #f1f1f1;
+  background-color: var(--bg-color-light);
 }

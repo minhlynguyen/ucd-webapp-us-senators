@@ -59,7 +59,7 @@ function displayLeader(obj){
             }
         }
     }
-
+    
     document.getElementById("id04").innerHTML = out; 
 }
 
@@ -137,6 +137,9 @@ function filterFunction() {
   // Produces error message if no results found
   if (hidden_rows == rows){
     output = "Error: No results seem to match. Please try a different combination of filters.";
+    document.getElementById("errorHandle").innerHTML = output;
+} else {
+    output = "";
     document.getElementById("errorHandle").innerHTML = output;
 }
 }

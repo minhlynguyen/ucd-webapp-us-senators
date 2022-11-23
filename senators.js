@@ -1,3 +1,4 @@
+var parsedObj;
 var xmlhttp = new XMLHttpRequest();
 var url = "senators.json";
 
@@ -5,7 +6,7 @@ xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         
         //Parse the JSON data to a JavaScript variable. 
-        var parsedObj = JSON.parse(xmlhttp.responseText);  
+        parsedObj = JSON.parse(xmlhttp.responseText);  
         // This function is defined below and deals with the JSON data parsed from the file. 
         displayLeader(parsedObj);
         countParty(parsedObj); 
@@ -65,7 +66,7 @@ function displayLeader(obj){
 
 function displaySenators(obj) {
   var senators = obj.objects;
-  var senatorInfo = "<table id = 'myTable'>";
+  var senatorInfo = "<table id = 'allSenatorsTable'>";
   senatorInfo += "<tr><th>Name</th><th>Party</th><th>State</th><th>Gender</th><th>Rank</th></tr>";
 
   // This code iterates through all senators and adds their name, party, state and rank to a table
@@ -78,7 +79,7 @@ function displaySenators(obj) {
               var senatorState = senators[j].state;
               var senatorGender = senators[j].person.gender_label;
               var senatorRank = senators[j].senator_rank_label;
-              senatorInfo += "<tr onclick=\"detailedInfo(parsedObj," + i + ")\"><td>" + senatorFirstName + " " + senatorLastName + "</td>"
+              senatorInfo += "<tr onclick=\"detailedInfo(parsedObj," + j + ")\"><td>" + senatorFirstName + " " + senatorLastName + "</td>"
               + "<td>" + senatorParty + "</td>" 
               + "<td>" + senatorState + "</td>"
               + "<td>" + senatorGender + "</td>" 
@@ -99,17 +100,24 @@ function filterFunction() {
   var stateInput = document.getElementById("stateInput");
   var genderInput = document.getElementById("genderInput");
   var rankInput = document.getElementById("rankInput");
-  var table = document.getElementById("myTable");
+  var table = document.getElementById("allSenatorsTable");
 
-  let partyFilter = partyInput.value.toUpperCase();
-  let stateFilter = stateInput.value.toUpperCase();
-  let genderFilter = genderInput.value.toUpperCase();
-  let rankFilter = rankInput.value.toUpperCase();
-  let tr = table.rows;
+  var partyFilter = partyInput.value.toUpperCase();
+  var stateFilter = stateInput.value.toUpperCase();
+  var genderFilter = genderInput.value.toUpperCase();
+  var rankFilter = rankInput.value.toUpperCase();
+  var tr = table.rows;
 
+  // Error checking for if no results match filters input.
+  // rows -= 1 as to not include table headers.
+  // If rows == hidden_rows, means all rows are hidden i.e. no results match
+  var rows = tr.length;
+  rows -= 1;
+  hidden_rows = 0;
 
+  var resultFound = false;
   
-  for (let i = 1; i < tr.length; i++) {
+  for (var i = 1; i < tr.length; i++) {
     td = tr[i].cells;
     tdParty = td[1].innerText;
     tdState = td[2].innerText;
@@ -117,13 +125,20 @@ function filterFunction() {
     tdRank = td[4].innerText;
     if (tdParty.toUpperCase().indexOf(partyFilter) > -1 &&
     tdState.toUpperCase().indexOf(stateFilter) > -1 &&
-    tdGender.toUpperCase().indexOf(genderFilter) > -1 &&
+    (!genderFilter || tdGender.toUpperCase() === genderFilter) &&
     tdRank.toUpperCase().indexOf(rankFilter) > -1) {
+      resultFound = true;
       tr[i].style.display = "";
     } else {
       tr[i].style.display = "none";
+      hidden_rows += 1;
     }
   }
+  // Produces error message if no results found
+  if (hidden_rows == rows){
+    output = "Error: No results seem to match. Please try a different combination of filters.";
+    document.getElementById("errorHandle").innerHTML = output;
+}
 }
 
 function detailedInfo(obj, i) {

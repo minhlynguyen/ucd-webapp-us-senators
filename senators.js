@@ -11,22 +11,29 @@ xmlhttp.onreadystatechange = function() {
         displayLeader(parsedObj);
         countParty(parsedObj); 
         displaySenators(parsedObj);  
-        populateStates(parsedObj)
+        populatePartyFilter(parsedObj);
+        populateStatesFilter(parsedObj);
+        populateGenderFilter(parsedObj);
+        populateRankFilter(parsedObj);
     }
 };
 
 xmlhttp.open("GET", url, true);
 xmlhttp.send();
 
+var democratCount = 0;
+
+
 function countParty(obj) {
     
     var senators = obj.objects;
-    var democratCount = 0;
+    democratCount = 0;
     var republicanCount = 0;
     var independentCount = 0;
 
     
     // This code iterates through the senators and counts the number in each party
+    
     for (var i=0; i < senators.length; i++){    
         if (senators[i].party === "Democrat"){
             democratCount++;
@@ -52,31 +59,14 @@ function displayLeader(obj){
 
     //This code iterates through the senators and display the senators with leadership role, grouped by party
     for (var i = 0; i < party.length; i++){
-        out += '<div><h3>'
-        out += party[i]
-        out += ' leaders</h3>'
-        var count = 0
-        for (j = 0; j < senators.length; j++){
+        for (var j = 0; j < senators.length; j++){
             if (party[i] === senators[j].party && senators[j].leadership_title !== null){
-                count += 1;
-                out += '<div class = "leadercontainer">';
-                out += '<p class = "leadername">';
-                out += senators[j].person.firstname + ' '+ senators[j].person.lastname;
-                out += '</p><p class = "role">';
-                out += senators[j].leadership_title;
-                out += '</p></div>';   
-            } 
-            if(count == 0){
-                out += "";
+                out += '<ul>'+ senators[j].leadership_title + ': ' + senators[j].person.firstname + ' ' 
+                        + senators[j].person.lastname + ' (' + senators[j].party + ')</ul>'
             }
         }
-        if (count == 0){
-        out += '<p class = "noleader"> There is no ' + party[i] + ' leaders<p>';
-        }
-        out += '</div>'
-    ;
-        
     }
+    
     document.getElementById("id04").innerHTML = out; 
 }
 
@@ -110,6 +100,102 @@ function displaySenators(obj) {
   document.getElementById("id05").innerHTML = senatorInfo;
 }
 
+// Function to populate the party filter dropdown
+// Code adapted from https://stackoverflow.com/questions/9895082/javascript-populate-drop-down-list-with-array
+function populatePartyFilter(obj) {
+    var data = obj.objects;
+    var uniqueParties = [];
+
+    // Creating an array of unique parties
+    for (i = 0; i < data.length; i++) {
+        if (uniqueParties.indexOf(data[i].party) == -1) {
+            uniqueParties.push(data[i].party);
+        }
+    }
+
+    var partyList = document.getElementById("partyInput");
+
+    for (i = 0; i < uniqueParties.length; i++){
+        var option = uniqueParties[i];
+        var element = document.createElement("option");
+        element.textContent = option;
+        partyList.appendChild(element);
+    }
+
+}
+
+// Function to populate the state filter dropdown
+function populateStatesFilter(obj) {
+    var data = obj.objects;
+    var uniqueStates = [];
+
+    // Creating an array of unique states
+    for (i = 0; i < data.length; i++) {
+        if (uniqueStates.indexOf(data[i].state) == -1) {
+            uniqueStates.push(data[i].state);
+        }
+    }
+
+    uniqueStates.sort();
+    var statesList = document.getElementById("stateInput");
+
+    for (i = 0; i < uniqueStates.length; i++){
+        var option = uniqueStates[i];
+        var element = document.createElement("option");
+        element.textContent = option;
+        statesList.appendChild(element);
+    }
+
+}
+
+// Function to populate the gender filter dropdown
+function populateGenderFilter(obj) {
+    var data = obj.objects;
+    var uniqueGenders = [];
+
+    // Creating an array of unique genders
+    for (i = 0; i < data.length; i++) {
+        if (uniqueGenders.indexOf(data[i].person.gender_label) == -1) {
+            uniqueGenders.push(data[i].person.gender_label);
+        }
+    }
+
+    uniqueGenders.sort();
+    var genderList = document.getElementById("genderInput");
+
+    for (i = 0; i < uniqueGenders.length; i++){
+        var option = uniqueGenders[i];
+        var element = document.createElement("option");
+        element.textContent = option;
+        genderList.appendChild(element);
+    }
+
+}
+
+// Function to populate the rank filter dropdown
+function populateRankFilter(obj) {
+    var data = obj.objects;
+    var uniqueRanks = [];
+
+    // Creating an array of unique states
+    for (i = 0; i < data.length; i++) {
+        if (uniqueRanks.indexOf(data[i].senator_rank_label) == -1) {
+            uniqueRanks.push(data[i].senator_rank_label);
+        }
+    }
+
+    uniqueRanks.sort();
+    var ranksList = document.getElementById("rankInput");
+
+    for (i = 0; i < uniqueRanks.length; i++){
+        var option = uniqueRanks[i];
+        var element = document.createElement("option");
+        element.textContent = option;
+        ranksList.appendChild(element);
+    }
+
+}
+
 function filterFunction() {
   // Adapted from W3S: https://www.w3schools.com/howto/howto_js_filter_table.asp
   // And also: https://stackoverflow.com/questions/61189530/html-table-multiple-column-filters 
@@ -131,8 +217,6 @@ function filterFunction() {
   var rows = tr.length;
   rows -= 1;
   hidden_rows = 0;
-
-  var resultFound = false;
   
   for (var i = 1; i < tr.length; i++) {
     td = tr[i].cells;
@@ -192,26 +276,3 @@ function detailedInfo(obj, i) {
   
 }
 
-// Function to populate the state filter dropdown
-function populateStates(obj) {
-    var data = obj.objects;
-    var uniqueStates = [];
-
-    // Creating an array of unique states
-    for (i = 0; i < data.length; i++) {
-        if (uniqueStates.indexOf(data[i].state) == -1) {
-            uniqueStates.push(data[i].state);
-        }
-    }
-
-    // Code adapted from https://stackoverflow.com/questions/9895082/javascript-populate-drop-down-list-with-array
-    var statesList = document.getElementById("stateInput");
-
-    for (i = 0; i < uniqueStates.length; i++){
-        var option = uniqueStates[i];
-        var element = document.createElement("option");
-        element.textContent = option;
-        statesList.appendChild(element);
-    }
-
-}

@@ -41,13 +41,13 @@
     <section class="senators">
         <div class="senators-list">
             <h1 style="font-size:28px;">All senators</h1>
-            <div>
-                <p>Select Filters:</p>
+            <div class="filter">
+                <!-- Ask: Can we delete this -->
+                <!-- <p>Select Filters:</p> -->
+                <div class="form-control">To style</div>
                 <select id="partyInput" onchange="filterFunction()" class='form-control'>
                     <option value="">Filter by Party( Default: Show All)</option>
-                    <option>Democrat</option>
-                    <option>Republican</option>
-                    <option>Independent</option>
+        
                 </select>
 
                 <select id="stateInput" onchange="filterFunction()" class='form-control'>
@@ -56,24 +56,49 @@
             
                 <select id="genderInput" onchange="filterFunction()" class='form-control'>
                     <option value="">Filter by Gender (Default: Show All)</option>
-                    <option>Male</option>
-                    <option>Female</option>
+              
                 </select>
             
                 <select id="rankInput" onchange="filterFunction()" class='form-control'>
                     <option value="">Filter by Rank (Default: Show All)</option>
-                    <option>Junior</option>
-                    <option>Senior</option>
+              
                 </select>
             </div>
             <div id = "id05"></div>
             <p id="errorHandle"></p>
         </div>
 
-
-
         <div class="senator-detail">
-            <div id = "id06"></div>
+            <div id = "id06" class="sidebar">
+                <h3>Senator Information</h3>
+                    <div class="info"></di>
+                        <div>
+                            <div class="info-row">
+                                <p class="info-label">Office</p>
+                                <p class="info-value">221 Dirksen Senate Office Building</p>
+                            </div>
+                            <div class="info-row">
+                                <p class="info-label">Date of Birth</p>
+                                <p class="info-value">1949-05-03</p>
+                            </div>
+                            <div class="info-row">
+                                <p class="info-label">Start date</p>
+                                <p class="info-value">2017-01-03</p>
+                            </div>
+                            <div class="info-row">
+                                <p class="info-label">Twitter ID</p>
+                                <p class="info-value">RonWyden</p>
+                            </div>
+                            <div class="info-row">
+                                <p class="info-label">Youtube ID</p>
+                                <p class="info-value">senronwyden</p>
+                            </div>
+                            <div class="info-row">
+                                <p class="info-label">Website:</p>
+                                <p class="info-value"><a href="https://www.wyden.senate.gov">https://www.wyden.senate.gov</a></p>
+                            </div>
+                        </div>
+            </div>
         </div>
     </section>
 

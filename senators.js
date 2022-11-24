@@ -35,18 +35,16 @@ function countParty(obj) {
         }
     }
 
-    out += '<div>';
     for (var i = 0; i < uniqueParties.length; i++){
-        out += '<div class="party-container"><div class="party-count"><h3>' + uniqueParties[i] + '</h3> <p class="senator-no">'
+        out += '<div class="party-container"><div class="party-count"><h3>' + uniqueParties[i] + '</h3><p class="senator-no">'
         var count = 0;
         for (var j=0; j < senators.length; j++){
             if (senators[j].party === uniqueParties[i]){
                 count++;
             } 
         }
-        out += count + '</p>';          
+        out += count + '</p></div></div>';          
     }
-    out += '</div>';
     document.getElementById("id01").innerHTML = out;
 
 }
@@ -230,7 +228,7 @@ function populatePartyFilter(obj) {
     // uniqueParties.sort();
     var partyList = document.getElementById("partyInput");
 
-    for (i = 0; i < data.length; i++){
+    for (i = 0; i < uniqueParties.length; i++){
         var option = uniqueParties[i];
         var element = document.createElement("option");
         element.textContent = option;

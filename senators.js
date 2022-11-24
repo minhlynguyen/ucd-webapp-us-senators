@@ -52,14 +52,31 @@ function displayLeader(obj){
 
     //This code iterates through the senators and display the senators with leadership role, grouped by party
     for (var i = 0; i < party.length; i++){
-        for (var j = 0; j < senators.length; j++){
+        out += '<div><h3>'
+        out += party[i]
+        out += ' leaders</h3>'
+        var count = 0
+        for (j = 0; j < senators.length; j++){
             if (party[i] === senators[j].party && senators[j].leadership_title !== null){
-                out += '<ul>'+ senators[j].leadership_title + ': ' + senators[j].person.firstname + ' ' 
-                        + senators[j].person.lastname + ' (' + senators[j].party + ')</ul>'
+                count += 1;
+                out += '<div class = "leadercontainer">';
+                out += '<p class = "leadername">';
+                out += senators[j].person.firstname + ' '+ senators[j].person.lastname;
+                out += '</p><p class = "role">';
+                out += senators[j].leadership_title;
+                out += '</p></div>';   
+            } 
+            if(count == 0){
+                out += "";
             }
         }
+        if (count == 0){
+        out += '<p class = "noleader"> There is no ' + party[i] + ' leaders<p>';
+        }
+        out += '</div>'
+    ;
+        
     }
-    
     document.getElementById("id04").innerHTML = out; 
 }
 

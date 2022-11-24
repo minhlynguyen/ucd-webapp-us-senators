@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Seymour+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Glegoo&family=Seymour+One&display=swap');
+
 :root{ /* Use variable for color to unify color styling throughout the website and edit faster*/
   --border-color: black;
-  --bg-color-strong: rgb(18, 18, 18);
-  --bg-color-light: rgb(48, 71, 94);
+  --bg-color-strong: rgb(20, 63, 107);
+  --bg-color-light: rgb(183, 62, 62);
+  --bg-color-lighest: rgb(178,170,79);
   --white-font: rgb(245, 245, 245);
   --shadow: rgba(0, 0, 0, 0.15); 
   --header-height: 72px;
@@ -11,15 +15,15 @@
 
 body{
   background-color: var(--bg-color-light);
-  background: linear-gradient(to bottom right, var(--bg-color-light), var(--bg-color-strong));
+  /* background: linear-gradient(to bottom right, var(--bg-color-light), var(--bg-color-strong)); */
   margin: 0 0 0 0;
   color: var(--white-font);
   font-family: var(--font-family);
 }
 
-h4{
+h3{
   border-bottom: 3px solid var(--white-font);
-  margin: 0;
+  margin: 16px 0px;
   padding: 10px;
   text-align: center;
 }
@@ -30,8 +34,8 @@ h4{
   align-items: center;
   width: 100%;
   height: var(--header-height);
-  background: var(--bg-color-light);
-  opacity: 0.8;
+  background: var(--bg-color-strong);
+  opacity: 0.9;
   box-shadow: 0 0 10px var(--shadow);
 }
 
@@ -49,8 +53,6 @@ header{
   background-size: cover;
   text-align: center;
 }
-
-
 
 .count{
   display: flex;
@@ -76,7 +78,12 @@ section{
   margin: 20px;
 }
 
-.leader{
+.leadersection{
+  background: var(--bg-color-strong);
+  opacity: 0.9;
+  padding: 30px 0px 30px 0px;
+}
+#id04{
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -90,11 +97,17 @@ section{
 .leadername{
   width: 49%;
   text-align: end;
+  font-family: 'Glegoo', serif;
+}
+
+.noleader{
+  font-family: 'Glegoo', serif;
 }
 
 .role{
   width: 49%;
   text-align: left;
+  font-family: 'Glegoo', serif;
 }
 
 
@@ -128,6 +141,7 @@ ul {
 .senators{
   display: flex;
   box-shadow: inset 0 0 3rem var(--shadow);
+  /* color: var(--bg-color-strong); */
 }
 
 .senators select{
@@ -138,6 +152,7 @@ ul {
 .senators p{
   font-size: 18px;
   font-weight: 400;
+  background: var(--bg-color-light);
 }
 
 #allSenatorsTable {

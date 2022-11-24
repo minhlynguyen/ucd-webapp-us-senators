@@ -13,28 +13,10 @@
             <div id="logo"><img src="images/flag.png" height="30"></a></div>
             <h3 id="title">U.S Senators</h3>
         </div>
-        <div class="count">
-            <div class="party-container">
-                <div class="party-count">
-                    <h3>Democrat</h3>
-                    <p id="id01" class="senator-no"></p>
-                </div>
-            </div>
-            <div class="party-container">
-                <div class="party-count">
-                    <h3>Republican</h3>
-                    <p id="id02" class="senator-no"></p>
-                </div>
-            </div>
-            <div class="party-container">
-                <div class="party-count">
-                    <h3>Independent</h3>
-                    <p id="id03" class="senator-no"></p>
-                </div>
-            </div>
-        </div>
+        
         <section class="leadersection">
-            <div id = "id04"></div>
+            <div id="id01"></div>
+            <div id="id04"></div>
         </section> 
     </header>
 
@@ -45,11 +27,11 @@
                 <!-- Ask: Can we delete this -->
                 <!-- <p>Select Filters:</p> -->
                 <div class="form-control">To style</div>
+                
                 <select id="partyInput" onchange="filterFunction()" class='form-control'>
                     <option value="">Filter by Party( Default: Show All)</option>
-        
                 </select>
-
+                
                 <select id="stateInput" onchange="filterFunction()" class='form-control'>
                     <option value="">Filter by State (Default: Show All)</option>
                 </select>

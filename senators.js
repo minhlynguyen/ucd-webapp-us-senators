@@ -21,46 +21,60 @@ xmlhttp.onreadystatechange = function() {
 xmlhttp.open("GET", url, true);
 xmlhttp.send();
 
+
+
 function countParty(obj) {
     
     var senators = obj.objects;
-    var democratCount = 0;
-    var republicanCount = 0;
-    var independentCount = 0;
+    var uniqueParties = [];
+    var out = "";
 
-    
-    // This code iterates through the senators and counts the number in each party
-    for (var i=0; i < senators.length; i++){    
-        if (senators[i].party === "Democrat"){
-            democratCount++;
-        } else if (senators[i].party === "Republican"){
-            republicanCount++;
-        } else {
-            independentCount++;
-        }          
+    for(i = 0; i < senators.length; i++){
+        if(uniqueParties.indexOf(senators[i].party)== -1){
+            uniqueParties.push(senators[i].party)
+        }
     }
 
-    document.getElementById("id01").innerHTML = democratCount;
-    document.getElementById("id02").innerHTML = republicanCount;
-    document.getElementById("id03").innerHTML = independentCount;
-    
+    out += '<div>';
+    for (var i = 0; i < uniqueParties.length; i++){
+        out += '<div class="party-container"><div class="party-count"><h3>' + uniqueParties[i] + '</h3> <p class="senator-no">'
+        var count = 0;
+        for (var j=0; j < senators.length; j++){
+            if (senators[j].party === uniqueParties[i]){
+                count++;
+            } 
+        }
+        out += count + '</p>';          
+    }
+    out += '</div>';
+    document.getElementById("id01").innerHTML = out;
+
 }
 
-party = ["Democrat", "Republican", "Independent"]
+
 
 function displayLeader(obj){
 
     var senators = obj.objects;
     var out = "";
+    var data = parsedObj.objects;
+    var uniqueParties = [];
+
+    // Creating an array of unique parties
+    for (i = 0; i < data.length; i++) {
+        if (uniqueParties.indexOf(data[i].party) == -1) {
+            uniqueParties.push(data[i].party);
+        }
+    }
 
     //This code iterates through the senators and display the senators with leadership role, grouped by party
-    for (var i = 0; i < party.length; i++){
+    for (var i = 0; i < uniqueParties.length; i++){
         out += '<div><h3>'
-        out += party[i]
+        out += uniqueParties[i]
         out += ' leaders</h3>'
         var count = 0
         for (j = 0; j < senators.length; j++){
-            if (party[i] === senators[j].party && senators[j].leadership_title !== null){
+            if (uniqueParties[i] === senators[j].party && senators[j].leadership_title !== null){
                 count += 1;
                 out += '<div class = "leadercontainer">';
                 out += '<p class = "leadername">';
@@ -71,7 +85,7 @@ function displayLeader(obj){
             } 
         }
         if (count == 0){
-        out += '<p class = "noleader"> There is no ' + party[i] + ' leader<p>';
+        out += '<p class = "noleader"> There is no ' + uniqueParties[i] + ' leader<p>';
         }
         out += '</div>'
     ;
@@ -86,10 +100,18 @@ function displaySenators(obj) {
   var senatorInfo = "<table id = 'allSenatorsTable'>";
   senatorInfo += "<tr><th>Name</th><th>Party</th><th>State</th><th>Gender</th><th>Rank</th></tr>";
 
+  var uniqueParties = [];
+  // Creating an array of unique parties
+  for (i = 0; i < senators.length; i++) {
+      if (uniqueParties.indexOf(senators[i].party) == -1) {
+          uniqueParties.push(senators[i].party);
+      }
+  }
+
   // This code iterates through all senators and adds their name, party, state and rank to a table
-  for(var i = 0; i < party.length; i++){
+  for(var i = 0; i < uniqueParties.length; i++){
       for(var j = 0; j < senators.length; j++){
-          if (party[i] == senators[j].party){
+          if (uniqueParties[i] == senators[j].party){
               var senatorFirstName = senators[j].person.firstname;
               var senatorLastName = senators[j].person.lastname;
               var senatorParty = senators[j].party;
@@ -198,16 +220,17 @@ function populatePartyFilter(obj) {
     var data = obj.objects;
     var uniqueParties = [];
 
-    // Creating an array of unique parties
+     // Creating an array of unique Parties
     for (i = 0; i < data.length; i++) {
-        if (uniqueParties.indexOf(data[i].party) == -1) {
-            uniqueParties.push(data[i].party);
-        }
+    if (uniqueParties.indexOf(data[i].party) == -1) {
+        uniqueParties.push(data[i].party);
+    }
     }
 
+    // uniqueParties.sort();
     var partyList = document.getElementById("partyInput");
 
-    for (i = 0; i < uniqueParties.length; i++){
+    for (i = 0; i < data.length; i++){
         var option = uniqueParties[i];
         var element = document.createElement("option");
         element.textContent = option;

@@ -10,7 +10,7 @@
   --bg-color-lighest: rgb(178,170,79);
   --white-font: rgb(245, 245, 245);
   --shadow: rgba(0, 0, 0, 0.15); 
-  --header-height: 72px;
+  --sidebar-header: 72px;
   --font-family: Google Sans,arial,sans-serif;
   --main: #1184F0;
   --text: #FEFEFE;
@@ -200,13 +200,13 @@ ul {
   color: var(--bg-color-light);
 }
 
-@media screen and (max-width: 500px){ 
+@media screen and (max-width: 450px){ 
   #allSenatorsTable thead{
     display: none;
   }
 
   #allSenatorsTable, #allSenatorsTable tbody, #allSenatorsTable tr, #allSenatorsTable td{
-    display: block;
+    display: revert;
     width: 100%;
   }
 
@@ -227,6 +227,14 @@ ul {
   width: 50%;
   background: linear-gradient(to left, var(--bg-color-light), var(--bg-color-strong));
   opacity: 0.9;
+}
+
+.sidebar-header{
+  display: flex;
+}
+
+.sidebar-header div{
+  width: 80%;
 }
 
 @media screen and (max-width: 700px) {
@@ -276,6 +284,8 @@ ul {
 }
 
 #toggle{
-  position: fixed;
-  top: 0;
+  font-size: 70px;
+  cursor: pointer;
+  margin: 0;
+  padding: 0; 
 }

@@ -177,7 +177,8 @@ function detailedInfo(i) {
 
 
   var detail_out = ''
-  detail_out += '<div class="sidebar"><h3>Senator Information</h3><div class="info"><div class="info-box">';
+  detail_out += '<div class="sidebar">' + '<div class="sidebar-header"><i id="toggle" onclick="hideParentDiv()" class="bx bx-x"></i>'
+  detail_out += '<div><h3>Senator Information</h3></div></div><div class="info"><div class="info-box">';
   detail_out += '<div class="info-row"><p class="info-label">Office: </p><p class="info-value">' + office + '</p></div>';
   detail_out += '<div class="info-row"><p class="info-label">Date of Birth: </p><p class="info-value">' + dateOfBirth + '</p></div>';
   detail_out += '<div class="info-row"><p class="info-label">Start Date: </p><p class="info-value">' +  startDate + '</p></div>';
@@ -286,6 +287,6 @@ function populateRankFilter() {
 // Function to close the detail 
 function hideParentDiv(){
 var btn = event.target;
-    var parentDiv = btn.parentNode;
+    var parentDiv = btn.parentNode.parentNode.parentNode.parentNode;
     parentDiv.style.display = "none";
 }

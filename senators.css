@@ -1,20 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Glegoo&family=Seymour+One&display=swap');
 
-
-
-
 :root{ /* Use variable for color to unify color styling throughout the website and edit faster*/
   --border-color: black;
   --bg-color-strong: rgb(20, 63, 107);
   --bg-color-light: rgb(183, 62, 62);
-  --bg-color-lighest: rgb(178,170,79);
   --white-font: rgb(245, 245, 245);
   --shadow: rgba(0, 0, 0, 0.15); 
-  --sidebar-header: 72px;
   --font-family: Google Sans,arial,sans-serif;
-  --main: #1184F0;
-  --text: #FEFEFE;
-  --contrast: darken($main, 10%);
 }
 
 body{
@@ -152,6 +144,7 @@ ul {
 }
 
 .form-control{
+  color: var(--bg-color-strong);
   border-radius: 3px;
   border-style: none;
 }
@@ -188,7 +181,6 @@ ul {
 }
 
 #allSenatorsTable tbody tr {
-  /* Add a bottom border to all table rows */
   border-bottom: 1px solid var(--white-font);
   font-family: 'Glegoo', serif;
   font-size: 11px; 
@@ -200,55 +192,38 @@ ul {
   color: var(--bg-color-light);
 }
 
-@media screen and (max-width: 450px){ 
-  #allSenatorsTable thead{
-    display: none;
-  }
-
-  #allSenatorsTable, #allSenatorsTable tbody, #allSenatorsTable tr, #allSenatorsTable td{
-    display: revert;
-    width: 100%;
-  }
-
-  .filter{
-    display: block;
-  }
-}
-
-
 .sidebar{
-  display: flex;
-  position: fixed;
-  flex-direction: column;
-  top: 0%;
-  bottom: 20%;
-  right: 0%;
-  height: 100%;
-  width: 50%;
-  background: linear-gradient(to left, var(--bg-color-light), var(--bg-color-strong));
-  opacity: 0.9;
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    top: 15%;
+    left: 20%;
+    bottom: 20%;
+    height: 70%;
+    width: 60%;
+    background: linear-gradient(to top, black, var(--bg-color-strong));
+    opacity: 0.9;
 }
 
 .sidebar-header{
   display: flex;
+  justify-content: space-around;
+  border-bottom: solid 3px;
+
 }
 
-.sidebar-header div{
-  width: 80%;
-}
+.sidebar-title{
+  width: 85%;
+  text-align: center;
+  font-size: larger;
 
-@media screen and (max-width: 700px) {
-  .sidebar {
-    width: 100%;
-    right: auto;
-  }
 }
 
 .info{
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   height: 100%;
 }
 
@@ -256,24 +231,6 @@ ul {
   justify-content: center;
   width: 100%;
   display: flex;
-}
-
-.info-box{
-  display: table-cell;
-  flex-direction: column;
-  width: 70%;
-  padding-left: 10%;
-  margin: 0;
-}
-
-.info-row{
-  display: flex;
-  align-items: left;
-  gap: 10%;
-}
-
-.info-label{
-  width: 20%;
 }
 
 .clicktohide{
@@ -288,4 +245,77 @@ ul {
   cursor: pointer;
   margin: 0;
   padding: 0; 
+}
+
+.info-box {
+  border-collapse: collapse; 
+  width: 80%; 
+  font-size: 18px; 
+  border-radius: 6px;
+}
+
+.info-box td {
+  text-align: left; 
+  padding: 8px 12px; 
+}
+
+.info-box tbody tr {
+  font-family: 'Glegoo', serif;
+  font-size: 1em; 
+}
+
+#errorHandle{
+  font-family: 'Glegoo', serif;
+  font-size: 0.8em;
+}
+
+@media screen and (max-width: 700px){
+ 
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  width: auto;
+  opacity: 0.9;
+}
+  
+}
+
+@media screen and (max-width: 450px){ 
+  #allSenatorsTable thead{
+    display: none;
+  }
+
+  #allSenatorsTable, #allSenatorsTable tbody, #allSenatorsTable tr, #allSenatorsTable td{
+    display: revert;
+    width: 100%;
+  }
+
+  .info-box, .info-box tr, .info-box td{
+    display: block;
+    width: 100%;
+  }
+
+
+  .filter{
+    text-align: center;
+    display: block;
+  }
+
+  .filter div {
+    margin: 3px 3px;
+    width: fit-content;
+  }
+
+  h1{
+    text-align: center;
+  }
+
+  .info{
+    display: block;
+  }
+
 }

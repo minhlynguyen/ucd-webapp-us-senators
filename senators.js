@@ -167,28 +167,31 @@ function detailedInfo(i) {
   if (youtubeId == null){
       youtubeId_out = "";
   } else {
-    youtubeId_out = '<div class="info-row"><p class="info-label">Youtube ID: </p><p class="info-value">' + youtubeId + '</p></div>' ;
+    youtubeId_out = '<tr class="info-row"><td class="info-label">Youtube ID: </td><td class="info-value">' + youtubeId + '</td></tr>' ;
     }
 
   if (twitterId == null){
       twitterId_out = "";
-  } else {twitterId_out = '<div class="info-row"><p class="info-label">Twitter ID: </p><p class="info-value">' + twitterId + '</p></div>';
+  } else {twitterId_out = '<tr class="info-row"><td class="info-label">Twitter ID: </td><td class="info-value">' + twitterId + '</td></tr>';
  }
 
 
   var detail_out = ''
-  detail_out += '<div class="sidebar">' + '<div class="sidebar-header"><i id="toggle" onclick="hideParentDiv()" class="bx bx-x"></i>'
-  detail_out += '<div><h3>Senator Information</h3></div></div><div class="info"><div class="info-box">';
-  detail_out += '<div class="info-row"><p class="info-label">Office: </p><p class="info-value">' + office + '</p></div>';
-  detail_out += '<div class="info-row"><p class="info-label">Date of Birth: </p><p class="info-value">' + dateOfBirth + '</p></div>';
-  detail_out += '<div class="info-row"><p class="info-label">Start Date: </p><p class="info-value">' +  startDate + '</p></div>';
+  detail_out += '<div class="sidebar">';
+  detail_out += '<div class="sidebar-header">';
+  detail_out += '<div class="sidebar-title"><h4>Senator Information</h4></div><i id="toggle" onclick="hideParentDiv()" class="bx bx-x"></i></div>';
+  detail_out += '<div class="info"><table class="info-box">'
+  detail_out += '<tr class="info-row"><td class="info-label">Office: </td><td class="info-value">' + office + '</td></tr>';
+  detail_out += '<tr class="info-row"><td class="info-label">Date of Birth: </td><td class="info-value">' + dateOfBirth + '</td></tr>';
+  detail_out += '<tr class="info-row"><td class="info-label">Start Date: </td><td class="info-value">' +  startDate + '</td></tr>';
   detail_out += twitterId_out + youtubeId_out;
-  detail_out += '<div class="info-row"><p class="info-label">Website: </p><p class="info-value"><a href="'+ website + '">' + website + '</a></p></div>';
-  detail_out += '</div>'
+  detail_out += '<tr class="info-row"><td class="info-label">Website: </td><td class="info-value"><a href="'+ website + '">' + website + '</a></td></tr>';
+  detail_out += '</table>'
+
   
   document.getElementById("id06").innerHTML = detail_out;
   
-  var targetDiv = document.getElementById("id07");
+  var targetDiv = document.getElementById("id06");
 
   if (targetDiv.style.display == "none") {
     targetDiv.style.display = "block";
@@ -287,6 +290,6 @@ function populateRankFilter() {
 // Function to close the detail 
 function hideParentDiv(){
 var btn = event.target;
-    var parentDiv = btn.parentNode.parentNode.parentNode.parentNode;
+    var parentDiv = btn.parentNode.parentNode.parentNode;
     parentDiv.style.display = "none";
 }

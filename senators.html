@@ -11,15 +11,15 @@
 <body>
     <header>
         <div class="top">
-            <div id="logo"><img src="images/flag.png" height="30"></a></div>
+            <div id="logo"><img src="images/flag.png" alt="Flag" height="30"></div>
             <h3 id="title">U.S Senators</h3>
         </div>
         
         <div id="id01"></div>
 
-        <section class="leadersection">
+        <div class="leadersection">
             <div id="id04"></div>
-        </section> 
+        </div> 
     </header>
 
     <section class="senators">
@@ -28,8 +28,7 @@
             <div class="filter">
                 <div>
                 <select id="partyInput" onchange="filterFunction()" class='form-control'>
-                    <option value="">Party</option>
-                    <option value="">Show All</option>
+                    <option value="">Party (Show All)</option>
                 </select>
                 </div>
                 <div>
@@ -50,13 +49,11 @@
             </div>
             <div id = "id05"></div>
             <p id="errorHandle"></p>
-    </section>
-    <div id="id07">
-        
-        <!-- <button id="toggle" onclick="hideParentDiv()">Hide id06 div</button> -->
+        </div>
         <div id = "id06"></div> 
-    </div>
+    </section>
 
 <script src = 'senators.js'></script>
 </body>
 </html>
+

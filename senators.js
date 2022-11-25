@@ -1,40 +1,36 @@
 var parsedObj;
+var senators;
+var uniqueParties;
 var xmlhttp = new XMLHttpRequest();
 var url = "senators.json";
 
 xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {        
         //Parse the JSON data to a JavaScript variable. 
         parsedObj = JSON.parse(xmlhttp.responseText);  
+        senators = parsedObj.objects;
+        uniqueParties = [];
+        for(i = 0; i < senators.length; i++){
+            if(uniqueParties.indexOf(senators[i].party)== -1){
+                uniqueParties.push(senators[i].party)
+            }
+        }
         // This function is defined below and deals with the JSON data parsed from the file. 
-        displayLeader(parsedObj);
-        countParty(parsedObj); 
-        displaySenators(parsedObj);  
-        populatePartyFilter(parsedObj);
-        populateStatesFilter(parsedObj);
-        populateGenderFilter(parsedObj);
-        populateRankFilter(parsedObj);
+        displayLeader();
+        countParty(); 
+        displaySenators();  
+        populatePartyFilter();
+        populateStatesFilter();
+        populateGenderFilter();
+        populateRankFilter();
     }
 };
 
 xmlhttp.open("GET", url, true);
 xmlhttp.send();
 
-
-
-function countParty(obj) {
-    
-    var senators = obj.objects;
-    var uniqueParties = [];
+function countParty() {
     var out = "";
-
-    for(i = 0; i < senators.length; i++){
-        if(uniqueParties.indexOf(senators[i].party)== -1){
-            uniqueParties.push(senators[i].party)
-        }
-    }
-
     for (var i = 0; i < uniqueParties.length; i++){
         out += '<div class="party-container"><div class="party-count"><h3>' + uniqueParties[i] + '</h3><p class="senator-no">'
         var count = 0;
@@ -46,25 +42,11 @@ function countParty(obj) {
         out += count + '</p></div></div>';          
     }
     document.getElementById("id01").innerHTML = out;
-
 }
 
 
-
-function displayLeader(obj){
-
-    var senators = obj.objects;
+function displayLeader(){
     var out = "";
-    var data = parsedObj.objects;
-    var uniqueParties = [];
-
-    // Creating an array of unique parties
-    for (i = 0; i < data.length; i++) {
-        if (uniqueParties.indexOf(data[i].party) == -1) {
-            uniqueParties.push(data[i].party);
-        }
-    }
-
     //This code iterates through the senators and display the senators with leadership role, grouped by party
     for (var i = 0; i < uniqueParties.length; i++){
         out += '<div><h3>'
@@ -86,27 +68,17 @@ function displayLeader(obj){
         out += '<p class = "noleader"> There is no ' + uniqueParties[i] + ' leader<p>';
         }
         out += '</div>'
-    ;
-        
+    ;        
     }
     document.getElementById("id04").innerHTML = out; 
 }
 
 
-function displaySenators(obj) {
-  var senators = obj.objects;
+function displaySenators() {
   var senatorInfo = "<table id = 'allSenatorsTable'>";
   senatorInfo += "<thead><tr><th>Name</th><th>Party</th><th>State</th><th>Gender</th><th>Rank</th></tr></thead>";
 
-  var uniqueParties = [];
-  // Creating an array of unique parties
-  for (i = 0; i < senators.length; i++) {
-      if (uniqueParties.indexOf(senators[i].party) == -1) {
-          uniqueParties.push(senators[i].party);
-      }
-  }
-
-  // This code iterates through all senators and adds their name, party, state and rank to a table
+  // This code iterates through all parties and senators and adds their name, party, state and rank to a table
   for(var i = 0; i < uniqueParties.length; i++){
       for(var j = 0; j < senators.length; j++){
           if (uniqueParties[i] == senators[j].party){
@@ -116,7 +88,7 @@ function displaySenators(obj) {
               var senatorState = senators[j].state;
               var senatorGender = senators[j].person.gender_label;
               var senatorRank = senators[j].senator_rank_label;
-              senatorInfo += "<tbody><tr onclick=\"detailedInfo(parsedObj," + j + ')\">'
+              senatorInfo += "<tbody><tr onclick=\"detailedInfo(" + j + ')\">'
               + "<td>" + senatorFirstName + " " + senatorLastName + "</td>"
               + "<td>" + senatorParty + "</td>" 
               + "<td>" + senatorState + "</td>"
@@ -183,16 +155,14 @@ function filterFunction() {
 }
 
 
-function detailedInfo(obj, i) {
-       
-  var detailedArray = obj.objects;
- 
-  var office = detailedArray[i].extra.office;
-  var dateOfBirth = detailedArray[i].person.birthday;
-  var startDate = detailedArray[i].startdate;
-  var twitterId = detailedArray[i].person.twitterid;
-  var youtubeId = detailedArray[i].person.youtubeid;
-  var website = detailedArray[i].website;
+function detailedInfo(i) {
+        
+  var office = senators[i].extra.office;
+  var dateOfBirth = senators[i].person.birthday;
+  var startDate = senators[i].startdate;
+  var twitterId = senators[i].person.twitterid;
+  var youtubeId = senators[i].person.youtubeid;
+  var website = senators[i].website;
   
   if (youtubeId == null){
       youtubeId_out = "";
@@ -219,18 +189,8 @@ function detailedInfo(obj, i) {
 
 // Function to populate the party filter dropdown
 // Code adapted from https://stackoverflow.com/questions/9895082/javascript-populate-drop-down-list-with-array
-function populatePartyFilter(obj) {
-    var data = obj.objects;
-    var uniqueParties = [];
+function populatePartyFilter() {
 
-     // Creating an array of unique Parties
-    for (i = 0; i < data.length; i++) {
-    if (uniqueParties.indexOf(data[i].party) == -1) {
-        uniqueParties.push(data[i].party);
-    }
-    }
-
-    // uniqueParties.sort();
     var partyList = document.getElementById("partyInput");
 
     for (i = 0; i < uniqueParties.length; i++){
@@ -243,18 +203,19 @@ function populatePartyFilter(obj) {
 }
 
 // Function to populate the state filter dropdown
-function populateStatesFilter(obj) {
-    var data = obj.objects;
+function populateStatesFilter() {
+    
     var uniqueStates = [];
 
     // Creating an array of unique states
-    for (i = 0; i < data.length; i++) {
-        if (uniqueStates.indexOf(data[i].state) == -1) {
-            uniqueStates.push(data[i].state);
+    for (i = 0; i < senators.length; i++) {
+        if (uniqueStates.indexOf(senators[i].state) == -1) {
+            uniqueStates.push(senators[i].state);
         }
     }
 
     uniqueStates.sort();
+    
     var statesList = document.getElementById("stateInput");
 
     for (i = 0; i < uniqueStates.length; i++){
@@ -267,14 +228,14 @@ function populateStatesFilter(obj) {
 }
 
 // Function to populate the gender filter dropdown
-function populateGenderFilter(obj) {
-    var data = obj.objects;
+function populateGenderFilter() {
+    
     var uniqueGenders = [];
 
     // Creating an array of unique genders
-    for (i = 0; i < data.length; i++) {
-        if (uniqueGenders.indexOf(data[i].person.gender_label) == -1) {
-            uniqueGenders.push(data[i].person.gender_label);
+    for (i = 0; i < senators.length; i++) {
+        if (uniqueGenders.indexOf(senators[i].person.gender_label) == -1) {
+            uniqueGenders.push(senators[i].person.gender_label);
         }
     }
 
@@ -291,14 +252,14 @@ function populateGenderFilter(obj) {
 }
 
 // Function to populate the rank filter dropdown
-function populateRankFilter(obj) {
-    var data = obj.objects;
+function populateRankFilter() {
+    
     var uniqueRanks = [];
-
-    // Creating an array of unique states
-    for (i = 0; i < data.length; i++) {
-        if (uniqueRanks.indexOf(data[i].senator_rank_label) == -1) {
-            uniqueRanks.push(data[i].senator_rank_label);
+    
+    // Creating an array of unique ranks
+    for (i = 0; i < senators.length; i++) {
+        if (uniqueRanks.indexOf(senators[i].senator_rank_label) == -1) {
+            uniqueRanks.push(senators[i].senator_rank_label);
         }
     }
 

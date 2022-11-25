@@ -96,7 +96,7 @@ function displayLeader(obj){
 function displaySenators(obj) {
   var senators = obj.objects;
   var senatorInfo = "<table id = 'allSenatorsTable'>";
-  senatorInfo += "<tr><th>Name</th><th>Party</th><th>State</th><th>Gender</th><th>Rank</th></tr>";
+  senatorInfo += "<thead><tr><th>Name</th><th>Party</th><th>State</th><th>Gender</th><th>Rank</th></tr></thead>";
 
   var uniqueParties = [];
   // Creating an array of unique parties
@@ -116,11 +116,12 @@ function displaySenators(obj) {
               var senatorState = senators[j].state;
               var senatorGender = senators[j].person.gender_label;
               var senatorRank = senators[j].senator_rank_label;
-              senatorInfo += "<tr onclick=\"detailedInfo(parsedObj," + j + ")\"><td>" + senatorFirstName + " " + senatorLastName + "</td>"
+              senatorInfo += "<tbody><tr onclick=\"detailedInfo(parsedObj," + j + ')\">'
+              + "<td>" + senatorFirstName + " " + senatorLastName + "</td>"
               + "<td>" + senatorParty + "</td>" 
               + "<td>" + senatorState + "</td>"
               + "<td>" + senatorGender + "</td>" 
-              + "<td>" + senatorRank + "</td></tr>" ;
+              + "<td>" + senatorRank + "</td></tr></tbody>" ;
             }
         }
   }
@@ -205,7 +206,7 @@ function detailedInfo(obj, i) {
  }
 
 
-  var detail_out = '<div class="sidebar"><h3>Senator Information</h3><div class="info"><div>';
+  var detail_out = '<div class="sidebar"><h3>Senator Information</h3><div class="info"><div class="info-box">';
   detail_out += '<div class="info-row"><p class="info-label">Office: </p><p class="info-value">' + office + '</p></div>';
   detail_out += '<div class="info-row"><p class="info-label">Date of Birth: </p><p class="info-value">' + dateOfBirth + '</p></div>';
   detail_out += '<div class="info-row"><p class="info-label">Start Date: </p><p class="info-value">' + startDate + '</p></div>';
@@ -324,3 +325,4 @@ btn.onclick = function(){
     targetDiv.style.display = "block";
   }
 };
+

@@ -25,27 +25,26 @@
         <div class="senators-list">
             <h1 style="font-size:28px;">All senators</h1>
             <div class="filter">
-                <!-- Ask: Can we delete this -->
-                <!-- <p>Select Filters:</p> -->
-                <div class="form-control">To style</div>
-                
+                <div>
                 <select id="partyInput" onchange="filterFunction()" class='form-control'>
-                    <option value="">Party (Default: Show All)</option>
+                    <option value="">Party (Show All)</option>
                 </select>
-                
+                </div>
+                <div>
                 <select id="stateInput" onchange="filterFunction()" class='form-control'>
-                    <option value="">State (Default: Show All)</option>
+                    <option value="">State (Show All)</option>
                 </select>
-            
+                </div>
+                <div>
                 <select id="genderInput" onchange="filterFunction()" class='form-control'>
-                    <option value="">Gender (Default: Show All)</option>
-              
+                    <option value="">Gender (Show All)</option>
                 </select>
-            
+                </div>
+                <div>
                 <select id="rankInput" onchange="filterFunction()" class='form-control'>
-                    <option value="">Rank (Default: Show All)</option>
-              
+                    <option value="">Rank (Show All)</option>
                 </select>
+                </div>
             </div>
             <div id = "id05"></div>
             <p id="errorHandle"></p>

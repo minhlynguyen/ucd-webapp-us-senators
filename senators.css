@@ -24,7 +24,6 @@ body{
   margin: 0 0 0 0;
   color: var(--white-font);
   font-family: var(--font-family);
-  /* width: 100%; */
   height: 100vh;
   width: 100vw;
 }
@@ -267,4 +266,16 @@ ul {
 
 .info-label{
   width: 20%;
+}
+
+.clicktohide{
+  background-color:#D94A38;
+  width:90px;
+  height:20px;
+  padding:40px;
+}
+
+#toggle{
+  position: fixed;
+  top: 0;
 }

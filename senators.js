@@ -88,7 +88,7 @@ function displaySenators() {
               var senatorState = senators[j].state;
               var senatorGender = senators[j].person.gender_label;
               var senatorRank = senators[j].senator_rank_label;
-              senatorInfo += "<tbody><tr onclick=\"detailedInfo(" + j + ')\">'
+              senatorInfo += "<tbody><tr id=\"viewdetail\" onclick=\"detailedInfo(" + j + ')\">'
               + "<td>" + senatorFirstName + " " + senatorLastName + "</td>"
               + "<td>" + senatorParty + "</td>" 
               + "<td>" + senatorState + "</td>"
@@ -176,15 +176,23 @@ function detailedInfo(i) {
  }
 
 
-  var detail_out = '<div class="sidebar"><h3>Senator Information</h3><div class="info"><div class="info-box">';
+  var detail_out = ''
+  detail_out += '<div class="sidebar"><h3>Senator Information</h3><div class="info"><div class="info-box">';
   detail_out += '<div class="info-row"><p class="info-label">Office: </p><p class="info-value">' + office + '</p></div>';
   detail_out += '<div class="info-row"><p class="info-label">Date of Birth: </p><p class="info-value">' + dateOfBirth + '</p></div>';
-  detail_out += '<div class="info-row"><p class="info-label">Start Date: </p><p class="info-value">' + startDate + '</p></div>';
+  detail_out += '<div class="info-row"><p class="info-label">Start Date: </p><p class="info-value">' +  startDate + '</p></div>';
   detail_out += twitterId_out + youtubeId_out;
   detail_out += '<div class="info-row"><p class="info-label">Website: </p><p class="info-value"><a href="'+ website + '">' + website + '</a></p></div>';
   detail_out += '</div>'
+  
   document.getElementById("id06").innerHTML = detail_out;
   
+  var targetDiv = document.getElementById("id07");
+
+  if (targetDiv.style.display == "none") {
+    targetDiv.style.display = "block";
+  } 
+
 }
 
 // Function to populate the party filter dropdown
@@ -276,14 +284,8 @@ function populateRankFilter() {
 }
 
 // Function to close the detail 
-var targetDiv = document.getElementById("id06");
-var btn = document.getElementById("toggle");
-// btn.style.display = 'none';
-btn.onclick = function(){
-  if (targetDiv.style.display !== "none") {
-    targetDiv.style.display = "none";
-  } else {
-    targetDiv.style.display = "block";
-  }
-};
-
+function hideParentDiv(){
+var btn = event.target;
+    var parentDiv = btn.parentNode;
+    parentDiv.style.display = "none";
+}

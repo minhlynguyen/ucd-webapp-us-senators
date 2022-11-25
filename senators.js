@@ -181,6 +181,7 @@ function filterFunction() {
 }
 }
 
+
 function detailedInfo(obj, i) {
        
   var detailedArray = obj.objects;
@@ -194,20 +195,23 @@ function detailedInfo(obj, i) {
   
   if (youtubeId == null){
       youtubeId_out = "";
-  } else {youtubeId_out = "<br>Youtube ID: " + youtubeId;}
+  } else {
+    youtubeId_out = '<div class="info-row"><p class="info-label">Youtube ID: </p><p class="info-value">' + youtubeId + '</p></div>' ;
+    }
 
   if (twitterId == null){
       twitterId_out = "";
-  } else {twitterId_out = "<br>Twitter ID: " + twitterId;}
+  } else {twitterId_out = '<div class="info-row"><p class="info-label">Twitter ID: </p><p class="info-value">' + twitterId + '</p></div>';
+ }
 
 
-  var detail_out = "Office: " + office +
-  "<br>Date of Birth: " + dateOfBirth +
-  "<br>Start date: " + startDate +
-  twitterId_out +
-  youtubeId_out +
-  "<br>Website: <a href=\"" + website + "\">" + website;
-  
+  var detail_out = '<div class="sidebar"><h3>Senator Information</h3><div class="info"><div>';
+  detail_out += '<div class="info-row"><p class="info-label">Office: </p><p class="info-value">' + office + '</p></div>';
+  detail_out += '<div class="info-row"><p class="info-label">Date of Birth: </p><p class="info-value">' + dateOfBirth + '</p></div>';
+  detail_out += '<div class="info-row"><p class="info-label">Start Date: </p><p class="info-value">' + startDate + '</p></div>';
+  detail_out += twitterId_out + youtubeId_out;
+  detail_out += '<div class="info-row"><p class="info-label">Website: </p><p class="info-value"><a href="'+ website + '">' + website + '</a></p></div>';
+  detail_out += '</div>'
   document.getElementById("id06").innerHTML = detail_out;
   
 }
@@ -308,3 +312,15 @@ function populateRankFilter(obj) {
     }
 
 }
+
+// Function to close the detail 
+var targetDiv = document.getElementById("id06");
+var btn = document.getElementById("toggle");
+// btn.style.display = 'none';
+btn.onclick = function(){
+  if (targetDiv.style.display !== "none") {
+    targetDiv.style.display = "none";
+  } else {
+    targetDiv.style.display = "block";
+  }
+};

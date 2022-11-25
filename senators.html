@@ -30,61 +30,30 @@
                 <div class="form-control">To style</div>
                 
                 <select id="partyInput" onchange="filterFunction()" class='form-control'>
-                    <option value="">Filter by Party (Default: Show All)</option>
+                    <option value="">Party (Default: Show All)</option>
                 </select>
                 
                 <select id="stateInput" onchange="filterFunction()" class='form-control'>
-                    <option value="">Filter by State (Default: Show All)</option>
+                    <option value="">State (Default: Show All)</option>
                 </select>
             
                 <select id="genderInput" onchange="filterFunction()" class='form-control'>
-                    <option value="">Filter by Gender (Default: Show All)</option>
+                    <option value="">Gender (Default: Show All)</option>
               
                 </select>
             
                 <select id="rankInput" onchange="filterFunction()" class='form-control'>
-                    <option value="">Filter by Rank (Default: Show All)</option>
+                    <option value="">Rank (Default: Show All)</option>
               
                 </select>
             </div>
             <div id = "id05"></div>
             <p id="errorHandle"></p>
-        </div>
-
-        <div class="senator-detail">
-            <div id = "id06" class="sidebar">
-                <h3>Senator Information</h3>
-                    <div class="info"></di>
-                        <div>
-                            <div class="info-row">
-                                <p class="info-label">Office</p>
-                                <p class="info-value">221 Dirksen Senate Office Building</p>
-                            </div>
-                            <div class="info-row">
-                                <p class="info-label">Date of Birth</p>
-                                <p class="info-value">1949-05-03</p>
-                            </div>
-                            <div class="info-row">
-                                <p class="info-label">Start date</p>
-                                <p class="info-value">2017-01-03</p>
-                            </div>
-                            <div class="info-row">
-                                <p class="info-label">Twitter ID</p>
-                                <p class="info-value">RonWyden</p>
-                            </div>
-                            <div class="info-row">
-                                <p class="info-label">Youtube ID</p>
-                                <p class="info-value">senronwyden</p>
-                            </div>
-                            <div class="info-row">
-                                <p class="info-label">Website:</p>
-                                <p class="info-value"><a href="https://www.wyden.senate.gov">https://www.wyden.senate.gov</a></p>
-                            </div>
-                        </div>
-            </div>
-        </div>
     </section>
-
+    <div>
+        <button id="toggle">Hide id06 div</button>
+        <div id = "id06"></div> 
+    </div>
 <script src = 'senators.js'></script>
 </body>
 </html>
